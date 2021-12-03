@@ -8,4 +8,7 @@ public interface SolutionDao {
     List<Solution> findAll();
 
     void addSolution(Solution solution);
+
+    void removeSolution(int id);
+
 }

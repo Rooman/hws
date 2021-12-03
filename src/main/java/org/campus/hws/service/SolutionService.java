@@ -17,9 +17,16 @@ public class SolutionService {
         System.out.println("Obtain solutions: " + solutions.size());
         return solutions;
     }
-    public void addSolution(Solution solution){
+
+    public void addSolution(Solution solution) {
         solutionDao.addSolution(solution);
         System.out.println("Solution added");
     }
+
+    public void removeSolution(int id) {
+        solutionDao.removeSolution(id);
+        System.out.println("Solution with id " + id + "was removed");
+    }
+
 
 }

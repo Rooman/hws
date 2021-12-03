@@ -8,10 +8,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class JdbcSolutionDao implements SolutionDao {
     private static final SolutionRowMapper SOLUTION_ROW_MAPPER = new SolutionRowMapper();
     private static final String FIND_ALL_SQL = "SELECT id, github_link, author, comments, publish_date, task_name FROM Solution;";
     private static final String ADD = "INSERT INTO Solution (id, github_link, author, comments, publish_date, task_name )";
+
     @Override
     public List<Solution> findAll() {
         try (Connection connection = getConnection();
@@ -46,6 +48,19 @@ public class JdbcSolutionDao implements SolutionDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void removeSolution(int id) {
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "DELETE FROM Solution WHERE id = ?")) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     private Connection getConnection() throws SQLException {
