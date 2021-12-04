@@ -8,4 +8,6 @@ public interface SolutionDao {
     List<Solution> findAll();
 
     void add(Solution solution);
+
+    List<Solution> findByFilter(String filter);
 }
