@@ -26,7 +26,7 @@ public class SolutionService {
         System.out.println("Solution added");
     }
 
-    public List<Solution> findByFilter(String filter) {
-        return solutionDao.findByFilter(filter);
+    public List<Solution> filterByTask(String filter) {
+        return solutionDao.filterByTask(filter);
     }
 }

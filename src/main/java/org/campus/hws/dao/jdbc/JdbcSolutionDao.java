@@ -20,7 +20,7 @@ public class JdbcSolutionDao implements SolutionDao {
             SELECT id, github_link, author, comments, publish_date, task_name
             FROM Solution;
             """;
-    private static final String FIND_FILTERED_SQL = """
+    private static final String FILTER_BY_TASK_NAME_SQL = """
             SELECT id, github_link, author, comments, publish_date, task_name
             FROM Solution
             WHERE task_name = ?;
@@ -38,7 +38,7 @@ public class JdbcSolutionDao implements SolutionDao {
             return findSolutions(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error with solution insert", e);
+            throw new RuntimeException("Error with finding all solutions", e);
         }
     }
 
@@ -60,15 +60,19 @@ public class JdbcSolutionDao implements SolutionDao {
     }
 
     @Override
-    public List<Solution> findByFilter(String filter) {
+    public List<Solution> filterByTask(String filter) {
+        return findByFilter(FILTER_BY_TASK_NAME_SQL, filter);
+    }
+
+    private List<Solution> findByFilter(String query, String filter) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_FILTERED_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, filter);
             return findSolutions(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error with solution insert", e);
+            throw new RuntimeException("Error with filtering solutions", e);
         }
     }
 

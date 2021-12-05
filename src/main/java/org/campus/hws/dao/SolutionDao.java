@@ -9,5 +9,5 @@ public interface SolutionDao {
 
     void add(Solution solution);
 
-    List<Solution> findByFilter(String filter);
+    List<Solution> filterByTask(String filter);
 }
