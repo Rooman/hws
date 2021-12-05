@@ -41,11 +41,25 @@
             </tr>
         </#list>
 
-
         </tbody>
     </table>
+
+    <form action="/solution" method="GET">
+        <strong>Select task:</strong>
+        <select name="task-filter">
+            <option value="All">All</option>
+            <option value="Linked list">Linked list</option>
+            <option value="File manager">File manager</option>
+            <option value="File analyser">File analyser</option>
+            <option value="Echo Server">Echo Server</option>
+            <option value="Web Server">Web Server</option>
+            <option value="Online shop">Online shop</option>
+        </select>
+        <input type="submit" class="btn btn-dark" value="Filter">
+    </form>
+
     <form action="/solution/add" target="_self" style="float: right; margin-left: 60px;">
-        <button  class="btn btn-dark">Add solution</button>
+        <button class="btn btn-dark">Add solution</button>
     </form>
 
 </div>

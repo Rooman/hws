@@ -21,7 +21,24 @@ public class ShowAllReviewsRequestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Solution> solutions = solutionService.findAll();
+        List<Solution> solutions = getSolutions(req);
+        displaySolutions(solutions, resp);
+    }
+
+    private List<Solution> getSolutions(HttpServletRequest req) {
+        List<Solution> solutions;
+
+        String filter = req.getParameter("task-filter");
+        if (filter == null || filter.equals("All")) {
+            solutions = solutionService.findAll();
+        } else {
+            solutions = solutionService.filterByTask(filter);
+        }
+
+        return solutions;
+    }
+
+    private void displaySolutions(List<Solution> solutions, HttpServletResponse resp) throws IOException {
         PageGenerator pageGenerator = PageGenerator.instance();
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("solutions", solutions);
