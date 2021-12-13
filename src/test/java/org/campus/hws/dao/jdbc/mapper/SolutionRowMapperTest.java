@@ -1,6 +1,7 @@
 package org.campus.hws.dao.jdbc.mapper;
 
 import org.campus.hws.entity.Solution;
+import org.campus.hws.entity.TaskType;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ class SolutionRowMapperTest {
         when(resultSetMock.getString("author")).thenReturn("Tolik");
         when(resultSetMock.getString("github_link")).thenReturn("github");
         when(resultSetMock.getString("comments")).thenReturn("Comment");
-        when(resultSetMock.getString("task_name")).thenReturn("task name");
+        when(resultSetMock.getString("task_name")).thenReturn("OS");
         when(resultSetMock.getInt("id")).thenReturn(101);
         when(resultSetMock.getTimestamp("publish_date")).thenReturn(timestamp);
 
@@ -37,7 +38,7 @@ class SolutionRowMapperTest {
         assertEquals("Tolik", actual.getAuthor());
         assertEquals("github", actual.getGithubLink());
         assertEquals("Comment", actual.getComment());
-        assertEquals("task name", actual.getTaskName());
+        assertEquals(TaskType.ONLINE_SHOP, actual.getTaskType());
         assertEquals(localDateTime, actual.getPublishDate());
 
     }

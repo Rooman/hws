@@ -1,6 +1,7 @@
 package org.campus.hws.web.servlet;
 
 import org.campus.hws.entity.Solution;
+import org.campus.hws.entity.TaskType;
 import org.campus.hws.service.SolutionService;
 import org.campus.hws.web.util.PageGenerator;
 
@@ -22,7 +23,11 @@ public class AddSolutionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("add_solution.html");
+        TaskType[] taskTypes = TaskType.values();
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("taskTypes", taskTypes);
+
+        String page = pageGenerator.getPage("add_solution.html", parameters);
         resp.getWriter().write(page);
     }
 
@@ -45,11 +50,11 @@ public class AddSolutionServlet extends HttpServlet {
 
 
     private Solution getSolutionFromRequest(HttpServletRequest req) {
-        // TODO: Remove id and publish date from template
+        String taskName = req.getParameter("task_name");
         return Solution.builder()
                 .githubLink(req.getParameter("github_link"))
                 .comment(req.getParameter("comment"))
-                .taskName(req.getParameter("task_name"))
+                .taskType(TaskType.getById(taskName))
                 .author(req.getParameter("author"))
                 .build();
     }

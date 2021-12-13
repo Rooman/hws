@@ -16,22 +16,24 @@
 <div class="container">
     <div class="row mb-3 mt-3">
         <div class="col-6">
-            <form action="/solutions" method="get">
+            <form action="/solutions"  method="get">
                 <div class="input-group">
                     <select class="form-select" name="task" data-mdb-placeholder="Search by task">
-                        <option value="Linked list" selected>Linked list</option>
-                        <option value="File manager">File manager</option>
-                        <option value="File analyser">File analyser</option>
-                        <option value="Echo Server">Echo Server</option>
-                        <option value="Web Server">Web Server</option>
-                        <option value="Online shop">Online shop</option>
+                        <#list taskTypes as taskType>
+                            <option value="${taskType.id}">${taskType.getName()}</option>
+                        </#list>
                     </select>
-                    <input class="btn btn-primary" type="submit" value="Search">
+                    <input class="btn btn-dark" type="submit" value="Search">
                 </div>
             </form>
         </div>
         <div class="col-6">
-            <a href="/solutions" class="btn btn-primary">Show all</a>
+            <a href="/solutions" class="btn btn-dark">Show all</a>
+        </div>
+        <div align="right">
+            <form action="/solution/add" target="_self">
+                <button class="btn btn-dark" >Add solution</button>
+            </form>
         </div>
     </div>
 
@@ -53,7 +55,7 @@
             <tr>
                 <th scope="row">${solution.id}</th>
                 <td>${solution.author}</td>
-                <td>${solution.taskName}</td>
+                <td>${solution.taskType.getName()}</td>
                 <td>
                     <a href="${solution.githubLink}">Link</a>
 
@@ -66,9 +68,6 @@
 
         </tbody>
     </table>
-    <form action="/solution/add" target="_self" style="float: right; margin-left: 60px;">
-        <button  class="btn btn-dark">Add solution</button>
-    </form>
 
 </div>
 

@@ -1,6 +1,8 @@
 package org.campus.hws.web.servlet;
 
 import org.campus.hws.entity.Solution;
+import org.campus.hws.entity.TaskType;
+import org.campus.hws.request.SolutionRequest;
 import org.campus.hws.service.SolutionService;
 import org.campus.hws.web.util.PageGenerator;
 
@@ -20,18 +22,22 @@ public class ShowAllReviewsRequestServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<Solution> solutions;
-
-        if(req.getParameter("task") != null) {
-            solutions = solutionService.findByTaskName(req.getParameter("task"));
-        } else {
-            solutions = solutionService.findAll();
+        SolutionRequest solutionRequest = new SolutionRequest();
+        String taskTypeString = req.getParameter("task");
+        TaskType[] taskTypes = TaskType.values();
+        if (taskTypeString != null) {
+            TaskType taskType = TaskType.getById(taskTypeString);
+            solutionRequest.setTaskType(taskType);
         }
+        solutions = solutionService.findAll(solutionRequest);
+
 
         PageGenerator pageGenerator = PageGenerator.instance();
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("solutions", solutions);
+        parameters.put("taskTypes", taskTypes);
 
         String page = pageGenerator.getPage("reviews_list.html", parameters);
         resp.getWriter().write(page);

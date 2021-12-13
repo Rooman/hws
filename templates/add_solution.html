@@ -10,45 +10,30 @@
 <body>
 
 <div class="container" align="center">
-    <p></p>
     <h1>Add your solution</h1>
-    <p></p>
     <form action="/solution/add" method="POST">
-        <strong>Select task:</strong>
-        <select style="width:190px;height:35px" align="center" name="task_name">
-            <option value="Linked list" selected> Linked list</option>
-            <option value="File manager">File manager</option>
-            <option value="File analyser">File analyser</option>
-            <option value="Echo Server">Echo Server</option>
-            <option value="Web Server">Web Server</option>
-            <option value="Online shop">Online shop</option>
-        </select>
-        <p></p>
+        <p><strong>Select task:</strong>
+            <select style="width:190px;height:35px" align="center" name="task_name">
+                <#list taskTypes as taskType>
+                    <option value="${taskType.id}">${taskType.getName()}</option>
+                </#list>
+            </select>
+        </p>
 
         <strong>
-            <div>
-                Author name: <input type="text" name="author"/>
-            </div>
-            <div>
-                Github link: <input type="text" name="github_link"/>
-            </div>
-            <div>
-                Comment: <input type="text" name="comment"/>
-            </div>
-            <div>
-                <input type="submit" class="btn btn-dark" value="Add solution">
-            </div>
+            <p>Author name: <input type="text" name="author" required="required"/></p>
+            <p>Github link: <input type="text" name="github_link" required="required"/></p>
+            <p>Comment: <input type="text" name="comment" required="required"/></p>
+            <p><input type="submit" class="btn btn-dark" value="Add solution"></p>
         </strong>
     </form>
 
     <form action="/" target="_self">
-        <p></p>
-        <button class="btn btn-dark">Return to solutions</button>
+        <p><button class="btn btn-dark">Return to solutions</button></p>
     </form>
 </div>
 
 <#if errorMessage??>
-    <p></p>
     <p align="center"><strong>${errorMessage}</strong></p>
 </#if>
 
