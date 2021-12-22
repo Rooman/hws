@@ -10,7 +10,7 @@ public enum TaskType {
     ONLINE_SHOP("OS", "Online shop"),
     FILE_ANALYSER("FA", "File analyser"),
     FILE_MANAGER("FM", "File manager"),
-    LINKED_LIST("LS", "Linked list"),
+    LINKED_LIST("LL", "Linked list"),
     WEB_SERVER("WS", "Web server"),
     ECHO_SERVER("ES", "Echo Server");
 
