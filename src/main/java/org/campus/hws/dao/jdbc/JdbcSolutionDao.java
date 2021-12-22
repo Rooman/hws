@@ -3,6 +3,7 @@ package org.campus.hws.dao.jdbc;
 import org.campus.hws.dao.SolutionDao;
 import org.campus.hws.dao.jdbc.mapper.SolutionRowMapper;
 import org.campus.hws.entity.Solution;
+import org.campus.hws.entity.TaskType;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class JdbcSolutionDao implements SolutionDao {
             preparedStatement.setString(2, solution.getAuthor());
             preparedStatement.setString(3, solution.getComment());
             preparedStatement.setTimestamp(4, Timestamp.valueOf(solution.getPublishDate()));
-            preparedStatement.setString(5, solution.getTaskName());
+            preparedStatement.setString(5, solution.getTaskType().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,12 +62,12 @@ public class JdbcSolutionDao implements SolutionDao {
     }
 
     @Override
-    public List<Solution> findByTaskName(String taskName) {
+    public List<Solution> findByTaskName(TaskType taskType) {
         List<Solution> solutions = new ArrayList<>();
 
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TASK_SQL);) {
-            preparedStatement.setString(1, taskName);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TASK_SQL)) {
+            preparedStatement.setString(1, taskType.getId());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Solution solution = SOLUTION_ROW_MAPPER.mapRow(resultSet);

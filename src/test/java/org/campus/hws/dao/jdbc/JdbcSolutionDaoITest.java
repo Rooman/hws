@@ -1,6 +1,7 @@
 package org.campus.hws.dao.jdbc;
 
 import org.campus.hws.entity.Solution;
+import org.campus.hws.entity.TaskType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -26,7 +27,7 @@ class JdbcSolutionDaoITest {
     @Test
     public void testGetAllByTaskNameReturnsCorrectData() {
         JdbcSolutionDao jdbcSolutionDao = new JdbcSolutionDao();
-        List<Solution> solutions = jdbcSolutionDao.findByTaskName("Linked list");
+        List<Solution> solutions = jdbcSolutionDao.findByTaskName(TaskType.LINKED_LIST);
 
         assertFalse(solutions.isEmpty());
         for (Solution solution : solutions) {

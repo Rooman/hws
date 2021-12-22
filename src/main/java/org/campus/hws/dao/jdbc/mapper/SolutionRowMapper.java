@@ -1,6 +1,7 @@
 package org.campus.hws.dao.jdbc.mapper;
 
 import org.campus.hws.entity.Solution;
+import org.campus.hws.entity.TaskType;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ public class SolutionRowMapper {
         String githubLink = resultSet.getString("github_link");
         String author = resultSet.getString("author");
         String comments = resultSet.getString("comments");
-        String taskName = resultSet.getString("task_name");
+        String taskName = resultSet.getString("task_name").trim();
         Timestamp publishDateTimeStamp = resultSet.getTimestamp("publish_date");
 
 
@@ -20,7 +21,7 @@ public class SolutionRowMapper {
                 id(id)
                 .githubLink(githubLink)
                 .comment(comments)
-                .taskName(taskName)
+                .taskType(TaskType.getById(taskName))
                 .author(author)
                 .publishDate(publishDateTimeStamp.toLocalDateTime())
                 .build();

@@ -17,5 +17,5 @@ public class Solution {
     private String githubLink;
     private String author;
     private LocalDateTime publishDate;
-    private String taskName;
+    private TaskType taskType;
 }
